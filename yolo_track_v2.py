@@ -3,11 +3,9 @@ import numpy as np
 import os
 from ultralytics import YOLO
 
-
 from tracked_person import TrackedPerson
 from track_records import TrackRecords
 from display_info_column import DisplayInfoColumn
-
 from text_rectangle import draw_rectangle_with_text
 import args
 
@@ -41,6 +39,8 @@ out = cv2.VideoWriter(save_video_path, fourcc, args.SAVE_FPS, (args.IMAGE_WIDTH 
 start_frame = -1
 stop_frame = -1
 
+print(f'Total Frames: {cap.get(cv2.CAP_PROP_FRAME_COUNT)}')
+
 out_track_ids = []
 
 while cap.isOpened():
@@ -57,7 +57,7 @@ while cap.isOpened():
 
         if (frame_count > stop_frame) and (stop_frame != -1):
             break
-
+        
         # Run YOLOv8 tracking
         results = model.track(frame, persist=True, classes=0,verbose=False)  # filter class = 0 (person)
 
@@ -71,7 +71,7 @@ while cap.isOpened():
         
         masks = results[0].masks
         if masks is not None:
-            masks = masks.data.numpy()
+            masks = masks.data.cpu().numpy()
         else:
             masks = []
 
@@ -113,6 +113,9 @@ while cap.isOpened():
                             
                             # get Colours
                             upper_colour, bottom_colour = tracked_person.detect_costum_colours(upper_body,lower_body)
+                            print("---------------------")
+                            print(upper_colour, bottom_colour)
+                            print("---------------------")
                             # Age Gender predictions
                             age , gender = tracked_person.detect_age_gender(head)
                             
@@ -135,7 +138,6 @@ while cap.isOpened():
                     except Exception as e:
                         print(f'display icon image is out of frmae : {e}')
 
-
                 if is_entered == "OUT":
                     if track_id not in out_track_ids:
                         total_out_count +=1
@@ -152,7 +154,6 @@ while cap.isOpened():
 
         display_frame = draw_rectangle_with_text(display_frame, args.IN_RECT_COORDINATES, str(total_in_count), "In", text_color=(0,0,0), rectangle_color=(255,0,0))
         display_frame = draw_rectangle_with_text(display_frame, args.OUT_RECT_COORDINATES, str(total_out_count), "Out", text_color=(0,0,0), rectangle_color=(255,0,0))
-
 
         color_counts, age_gender_distribution = track_records.get_count_dicts()
 

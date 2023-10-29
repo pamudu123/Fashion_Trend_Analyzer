@@ -41,7 +41,7 @@ def KMeans_colour_clustering(np_image, n_colors=args.N_COLOURS):
     pixels = image.reshape(-1, 3)         # 2D array of pixels
     
     # Apply K-Means clustering to find the most common colors
-    kmeans = KMeans(n_clusters=n_colors,n_init = 'auto')
+    kmeans = KMeans(n_clusters=n_colors,random_state=42,n_init=10)
     kmeans.fit(pixels)
 
     common_colors = kmeans.cluster_centers_.astype(int)
@@ -59,11 +59,7 @@ def KMeans_colour_clustering(np_image, n_colors=args.N_COLOURS):
 def get_comman_clours(colors_and_percentages):
     common_colours_list = []
     for col,per in colors_and_percentages:
-
         RGB_colour = HSV_colour_track.HSV_classify_color(list(col))
-        # rounded_colour_value = [round(value / 10) * 10 for value in col]
-        # RGB_colour = RGB_classify_color(list(rounded_colour_value))
-        # print(col,RGB_colour,per)
 
         common_colours_list.append((RGB_colour,int(per)))
 
@@ -72,7 +68,8 @@ def get_comman_clours(colors_and_percentages):
     for color, per in common_colours_list:
         if color == 'Unknown':
             continue
-        color_sums[color] += per
+        if per > 10:
+            color_sums[color] += per
     sorted_common_colors = sorted(color_sums.items(), key=lambda x: x[1], reverse=True)
 
     return sorted_common_colors
@@ -83,12 +80,14 @@ if __name__ == '__main__':
     folder_path = r'save_person_data'
     file_names = os.listdir(folder_path)
 
-    face_images  = [os.path.join(folder_path, file_name) for file_name in file_names if file_name.startswith("face")]
-    upper_part_images  = [os.path.join(folder_path, file_name) for file_name in file_names if file_name.startswith("upper")]
-    lower_part_images  = [os.path.join(folder_path, file_name) for file_name in file_names if file_name.startswith("low")]
+    face_images  = sorted([os.path.join(folder_path, file_name) for file_name in file_names if file_name.startswith("face")])
+    upper_part_images  = sorted([os.path.join(folder_path, file_name) for file_name in file_names if file_name.startswith("upper")])
+    lower_part_images  = sorted([os.path.join(folder_path, file_name) for file_name in file_names if file_name.startswith("low")])
 
-    idx = 17
-    image_path = lower_part_images[idx]
+    idx = 1
+    image_path = upper_part_images[idx]
+
+
     image = cv2.imread(image_path)
     result = KMeans_colour_clustering(image)
     

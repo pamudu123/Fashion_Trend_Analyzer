@@ -2,6 +2,7 @@ import cv2
 import os
 import args
 
+
 class AgeGenderPredictor:
     def __init__(self):
         age_model_path = args.AGE_MODEL
@@ -32,10 +33,7 @@ class AgeGenderPredictor:
         self.age_net.setInput(blob)
         age_preds = self.age_net.forward()
         self.pred_age = self.la[age_preds[0].argmax()]
-        # return self.pred_age
 
-        import random
-        self.pred_age = random.choice(['(15-20)', '(25-32)'])
         return self.pred_age
 
     def classify_gender(self, face):
@@ -45,19 +43,11 @@ class AgeGenderPredictor:
         self.gender_net.setInput(blob)
         gender_preds = self.gender_net.forward()
         self.pred_gender = self.lg[gender_preds[0].argmax()]
-        self.pred_gender = 'Male'
         return self.pred_gender
 
     def predict_age_gender(self, face):
         return self.classify_age(face), self.classify_gender(face)
-     
-    def __str__(self):
-        if self.pred_age and self.pred_gender:
-            return f"Predicted Age: {self.pred_age}, Predicted Gender: {self.pred_gender}"
-        else:
-            return "No predictions available"
-        
-
+       
     def get_person_category(self):
         if self.pred_gender not in self.lg:
             raise ValueError("Invalid gender")
@@ -72,6 +62,12 @@ class AgeGenderPredictor:
             raise ValueError("Invalid age category")
         
         return f"{age_group}_{gender.lower()}"
+    
+    def __str__(self):
+        if self.pred_age and self.pred_gender:
+            return f"Predicted Age: {self.pred_age}, Predicted Gender: {self.pred_gender}"
+        else:
+            return "No predictions available"
 
 
 if __name__ == '__main__':

@@ -25,8 +25,8 @@ def convert_to_hsv(r, g, b):
 
 def HSV_classify_color(input_color): 
     hsv_color = convert_to_hsv(*input_color)
-    print(f'HSV : {hsv_color}')
     hsv_color_ranges = args.HSV_COLOUR_RANGES
+
     # Convert the input HSV color to integer values
     hsv_color = tuple(int(x) for x in hsv_color)
     

@@ -1,0 +1,13 @@
+model_files/
+recorded_videos/
+records/
+save_person_data/
+YOLO_seg/
+backup/
+__pycache__/
+git_config/
+
+
+
+
+
