@@ -50,6 +50,7 @@ The Fashion Trend Analyzer is designed to identify and record seasonal costume p
 
 - The details, including segmentation masks, are displayed in an OpenCV window.
 
+<br>
 
-## Demonstration
+# Demonstration
 ![DemoVideo](resources/video.gif)

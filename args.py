@@ -51,6 +51,10 @@ YOUNG_AGE_CATEGORIES = ['(0-2)', '(4-6)', '(8-12)', '(15-20)']
 MIDDLE_AGE_CATEGORIES = ['(25-32)', '(38-43)', '(48-53)']
 OLD_AGE_CATEGORIES = ['(60-100)']
 
+N_COLOURS = 5  # KMeans gets most common colours
+
+IMAGE_LIBRARY = r'settings/age_gender_icons' # Display Images Dir
+
 
 #### COLOUR RANGES ####
 ## HSV
@@ -100,12 +104,6 @@ BGR_EXTRACT_COLOUR_MAP = {
     'Cyan': (0, 255, 255),     
     'Brown': (165, 42, 42)
 }
-
-
-N_COLOURS = 5  # KMeans gets most common colours
-
-#### Display Images Dir ####
-IMAGE_LIBRARY = r'settings/age_gender_icons'
 
 
 ##### SQL Parameters #####
