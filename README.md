@@ -32,7 +32,7 @@ The Fashion Trend Analyzer is designed to identify and record seasonal costume p
 - **Algorithm**: Uses KMeans algorithm-based method for identify colours.
 - **Steps**:
   1. **Image Conversion**: Converts from BGR to RGB using OpenCV.
-  2. **Preprocessing**: Black pixels are removed using the `remove_black_pixels` function.
+  2. **Preprocessing**:The black background pixels in the pixel mask are removed.
   3. **K-Means Clustering**: Groups similar pixels (colors) into clusters.
   4. **Cluster Analysis**: Retrieves the cluster centers representing the most common colors.
   5. **Pixel Count**: Calculates the number of pixels in each cluster.
@@ -49,3 +49,7 @@ The Fashion Trend Analyzer is designed to identify and record seasonal costume p
 ## 5. Display
 
 - The details, including segmentation masks, are displayed in an OpenCV window.
+
+
+## Demonstration
+![DemoVideo](resources/video.gif)
