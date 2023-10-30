@@ -53,4 +53,8 @@ The Fashion Trend Analyzer is designed to identify and record seasonal costume p
 <br>
 
 # Demonstration
-![DemoVideo](resources/video.gif)
+**Video 1**
+![DemoVideo1](resources/video.gif)
+
+**Video 2**
+![DemoVideo2](resources/video_2.gif)

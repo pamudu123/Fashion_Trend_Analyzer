@@ -113,9 +113,7 @@ while cap.isOpened():
                             
                             # get Colours
                             upper_colour, bottom_colour = tracked_person.detect_costum_colours(upper_body,lower_body)
-                            print("---------------------")
                             print(upper_colour, bottom_colour)
-                            print("---------------------")
                             # Age Gender predictions
                             age , gender = tracked_person.detect_age_gender(head)
                             
